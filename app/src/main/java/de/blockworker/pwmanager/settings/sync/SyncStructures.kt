@@ -12,14 +12,13 @@ import de.blockworker.pwmanager.settings.AppMappingEntity
 import de.blockworker.pwmanager.settings.IdentSettingEntity
 import java.io.InputStream
 import java.io.InputStreamReader
-import java.io.OutputStream
-import java.io.OutputStreamWriter
 import java.lang.reflect.Type
 import java.time.Instant
 
 data class SyncRequest(
     val token: String,
-    /*@SerializedName("last_sync")*/ val lastSync: Instant,
+    val lastSync: Instant,
+    val includeApps: Boolean,
     val idents: List<IdentSettingEntity>,
     val apps: List<AppMappingEntity>
 ) {
@@ -31,11 +30,11 @@ data class SyncRequest(
 data class SyncResponse(
     val uuid: String,
     val token: String,
-    /*@SerializedName("sync_time")*/ val syncTime: Instant,
-    /*@SerializedName("changed_idents")*/ val changedIdents: List<IdentSettingEntity>,
-    /*@SerializedName("changed_apps")*/ val changedApps: List<AppMappingEntity>,
-    /*@SerializedName("deleted_idents")*/ val deletedIdents: List<String>,
-    /*@SerializedName("deleted_apps")*/ val deletedApps: List<String>,
+    val syncTime: Instant,
+    val changedIdents: List<IdentSettingEntity>,
+    val changedApps: List<AppMappingEntity>,
+    val deletedIdents: List<String>,
+    val deletedApps: List<String>,
 ) {
     companion object {
         fun fromJson(stream: InputStream): SyncResponse? {
@@ -47,14 +46,14 @@ data class SyncResponse(
     }
 
     fun getConfirmation(): SyncConfirmation {
-        return SyncConfirmation(uuid, token, syncTime);
+        return SyncConfirmation(uuid, token, syncTime)
     }
 }
 
 data class SyncConfirmation(
     val uuid: String,
     val token: String,
-    /*@SerializedName("sync_time")*/ val syncTime: Instant
+    val syncTime: Instant
 ) {
     fun toJson(): String {
         return SyncUtils.gsonInstance.toJson(this)

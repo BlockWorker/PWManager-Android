@@ -95,6 +95,7 @@ object SyncManager {
             val request = SyncRequest(
                 token = info.token,
                 lastSync = info.lastSync,
+                includeApps = true,
                 idents = dao.getAllIdents(),
                 apps = dao.getAllApps()
             )

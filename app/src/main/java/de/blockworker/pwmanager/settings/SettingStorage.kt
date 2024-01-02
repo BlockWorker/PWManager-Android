@@ -5,7 +5,6 @@ import androidx.room.Dao
 import androidx.room.Database
 import androidx.room.Delete
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.Room
@@ -78,7 +77,11 @@ interface SettingDao {
 
     fun insertIdentSettings(vararg settings: IdentSettingEntity) {
         val ts = Instant.now()
-        for (s in settings) s.timestamp = ts
+        for (s in settings) {
+            if (s.timestamp.epochSecond < 946707779) { //before 2000
+                s.timestamp = ts
+            }
+        }
         _internal_insertIdentSettings(*settings)
     }
 
@@ -87,7 +90,11 @@ interface SettingDao {
 
     fun insertAppMappings(vararg settings: AppMappingEntity) {
         val ts = Instant.now()
-        for (s in settings) s.timestamp = ts
+        for (s in settings) {
+            if (s.timestamp.epochSecond < 946707779) { //before 2000
+                s.timestamp = ts
+            }
+        }
         _internal_insertAppMappings(*settings)
     }
 
