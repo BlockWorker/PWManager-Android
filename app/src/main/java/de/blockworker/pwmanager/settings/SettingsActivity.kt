@@ -1501,8 +1501,8 @@ fun SyncSettings(info: SyncInfoEntity, saveCb: (SyncInfoEntity) -> Unit,
                 val offset = Duration.between(time.value, info.lastSync)
                 val timeString = if (date.year < 2000) "Never"
                                     else durationString(offset)
-                val lastSyncLabel = if (syncError.value) "Last Sync failed ($timeString)"
-                                    else "Last Sync: $timeString"
+                var lastSyncLabel = "Last Sync: $timeString"
+                if (syncError.value) lastSyncLabel += " (failed later)"
 
                 Text(
                     text = if (syncInProgress.value) "Sync in progress..." else lastSyncLabel,
