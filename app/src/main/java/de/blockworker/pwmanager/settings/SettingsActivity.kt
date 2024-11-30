@@ -1477,18 +1477,18 @@ fun SyncSettings(info: SyncInfoEntity, saveCb: (SyncInfoEntity) -> Unit,
                                 .padding(end = 10.dp),
                             horizontalAlignment = Alignment.End
                         ) {
-                            Text("Server Host:", fontSize = 15.sp)
-                            Text("Server Port:", fontSize = 15.sp)
-                            Text("User Token:", fontSize = 15.sp)
+                            Text("Server Host:", fontSize = 15.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                            Text("Server Port:", fontSize = 15.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                            Text("User Token:", fontSize = 15.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
                         }
                         Column(
                             modifier = Modifier
                                 .weight(1f)
                                 .padding(start = 10.dp)
                         ) {
-                            Text(info.serverHost, fontSize = 15.sp)
-                            Text(info.serverPort.toString(), fontSize = 15.sp)
-                            Text(text = "\u2022".repeat(8), fontSize = 15.sp)
+                            Text(info.serverHost, fontSize = 15.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                            Text(info.serverPort.toString(), fontSize = 15.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                            Text(text = "\u2022".repeat(8), fontSize = 15.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
                         }
                     }
                 }
